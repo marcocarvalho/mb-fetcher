@@ -9,7 +9,9 @@ class MbFetcher
   def conn
     return @conn if @conn
     @conn = Bunny.new(
-      :hostname => ENV['RABBITMQ_HOST'])
+      hostname: ENV['RABBITMQ_HOST'],
+      user: ENV['RABBITMQ_USER'],
+      pass: ENV['RABBITMQ_PASS'])
     @conn.start
   end
 
