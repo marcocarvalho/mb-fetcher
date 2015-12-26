@@ -4,3 +4,8 @@ ENV RABBITMQ_PORT=5672
 ENV RABBITMQ_HOST=rabbitmq
 WORKDIR /usr/src/app/
 ENTRYPOINT /usr/local/bin/ruby lib/mb-fetcher.rb
+
+# environment:
+#   RABBITMQ_HOST: localhost
+#   RABBITMQ_USER: guest
+#   RABBITMQ_PASS: guest

@@ -1,8 +1,14 @@
 $LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
 
-require 'json'
 require 'bundler'
 Bundler.setup
+
+if ENV['DOTENV']
+  require 'dotenv'
+  Dotenv.load
+end
+
+require 'json'
 require 'bunny'
 require 'mercado_bitcoin'
 
@@ -27,8 +33,28 @@ class MbFetcher
   def publish msg
     channel.default_exchange.publish(msg, routing_key: queue.name)
   end
+
+  def mercado_bitcoin
+    @mercado_bitcoin ||= MercadoBitcoin::Trade.new(:bitcoin, since: since)
+  end
+
+  def since
+    ENV['SINCE'] || (raise ArgumentError.new('env SINCE is required'))
+  end
+
+  def models
+    @models ||= mercado_bitcoin.fetch
+  end
+
+  def perform
+    models.each do |model|
+      publish(model.to_json)
+    end
+  end
+
+  def self.perform
+    new.perform
+  end
 end
 
-mb = MbFetcher.new
-
-mb.publish({a: 1, b: 2}.to_json)
+MbFetcher.perform
