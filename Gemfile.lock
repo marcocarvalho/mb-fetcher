@@ -2,22 +2,55 @@ GEM
   remote: https://rubygems.org/
   specs:
     amq-protocol (2.0.1)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     bunny (2.2.2)
       amq-protocol (>= 2.0.1)
     coderay (1.1.0)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    domain_name (0.5.25)
+      unf (>= 0.0.5, < 1.0.0)
+    equalizer (0.0.11)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
+    ice_nine (0.11.1)
+    mercado_bitcoin (0.1.0)
+      rest-client (~> 1.8)
+      virtus (~> 1.0)
     method_source (0.8.2)
+    mime-types (2.99)
+    netrc (0.11.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rake (10.4.2)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     slop (3.6.0)
+    thread_safe (0.3.5)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bunny
+  mercado_bitcoin
   pry
   rake
 
