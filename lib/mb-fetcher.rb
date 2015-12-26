@@ -4,6 +4,7 @@ require 'json'
 require 'bundler'
 Bundler.setup
 require 'bunny'
+require 'mercado_bitcoin'
 
 class MbFetcher
   def conn
