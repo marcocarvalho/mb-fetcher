@@ -1,3 +1,8 @@
+if ARGV.count == 0
+  puts "use ruby #{__FILE__} SINCE"
+  exit 1
+end
+
 $LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
 
 require 'bundler'
@@ -13,6 +18,12 @@ require 'bunny'
 require 'mercado_bitcoin'
 
 class MbFetcher
+  attr_reader :since
+
+  def initialize(since)
+    @since = since
+  end
+
   def conn
     return @conn if @conn
     @conn = Bunny.new(
@@ -38,10 +49,6 @@ class MbFetcher
     @mercado_bitcoin ||= MercadoBitcoin::Trade.new(:bitcoin, since: since)
   end
 
-  def since
-    ENV['SINCE'] || (raise ArgumentError.new('env SINCE is required'))
-  end
-
   def models
     @models ||= mercado_bitcoin.fetch
   end
@@ -52,9 +59,9 @@ class MbFetcher
     end
   end
 
-  def self.perform
-    new.perform
+  def self.perform(since)
+    new(since).perform
   end
 end
 
-MbFetcher.perform
+MbFetcher.perform(ARGV[0])
